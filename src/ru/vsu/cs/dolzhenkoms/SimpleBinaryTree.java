@@ -60,22 +60,35 @@ public class SimpleBinaryTree<T> {
     }
 
     public void printTree() {
-        loop(root, 1);
+        loop(root, 1, false);
         System.out.println("Высота дерева - " + this.height);
     }
 
-    private void loop(SimpleTreeNode node, int height) {
+    public void printColouredTree() {
+        loop(root, 1, true);
+    }
+
+    private void loop(SimpleTreeNode node, int height, boolean coloredTree) {
         if(node != null) {
-            int colorGreen = 255 / height;
+            int colorGreen = 0;
+            String colorInString = "";
+            if(coloredTree) {
+                colorGreen = height == 1 ? 255 : 255 - 255 * height / this.height;
+                colorInString = "\033[38;2;255;" + (colorGreen) + ";0m";
+            }
             for(int i = 0; i < height; i++)
-                System.out.print("\033[38;2;255;" + (colorGreen) + ";0m ");
+                System.out.print(colorInString + "  ");
             System.out.println(node.value);
             height++;
             this.height = Math.max(this.height ,height);
-            loop(node.left, height);
-            loop(node.right, height);
+            loop(node.left, height, coloredTree);
+            loop(node.right, height, coloredTree);
         }
         System.out.print("\033[0m");
+    }
+
+    private int getHeight() {
+        return height;
     }
 
     public void fromBracketNotation(String bracketStr) throws Exception {

@@ -6,5 +6,6 @@ public class Main {
         SimpleBinaryTree myTree = new SimpleBinaryTree(Object::toString);
         myTree.fromBracketNotation("A(B(D(M(L,P),K),G),C)");
         myTree.printTree();
+        myTree.printColouredTree();
     }
 }
